@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mission Board</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23d62839'/><text x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='700'>MB</text></svg>" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <!-- ===== Login / sign-up view ===== -->
+    <main id="auth-view" class="auth" hidden>
+      <div class="auth__card">
+        <h1 class="brand">Mission Board</h1>
+        <p class="muted">Peter's to-do list for keeping the city (and his grades) in one piece.</p>
+
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab is-active" data-mode="login" role="tab" aria-selected="true">Log in</button>
+          <button type="button" class="tab" data-mode="signup" role="tab" aria-selected="false">Sign up</button>
+        </div>
+
+        <form id="auth-form" novalidate>
+          <label class="field" id="name-field" hidden>
+            <span>Name</span>
+            <input name="name" type="text" autocomplete="name" maxlength="60" />
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" required />
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input name="password" type="password" autocomplete="current-password" required minlength="8" />
+            <small class="hint" id="password-hint" hidden>At least 8 characters</small>
+          </label>
+          <p class="error" id="auth-error" role="alert"></p>
+          <button type="submit" class="btn btn--primary btn--block" id="auth-submit">Log in</button>
+        </form>
+      </div>
+    </main>
+
+    <!-- ===== Missions view ===== -->
+    <div id="app-view" hidden>
+      <header class="topbar">
+        <div class="container topbar__inner">
+          <span class="brand brand--small">Mission Board</span>
+          <span class="muted" id="user-name"></span>
+          <button type="button" class="btn btn--ghost" id="logout-btn">Log out</button>
+        </div>
+      </header>
+
+      <main class="container">
+        <section class="panel">
+          <h2>New mission</h2>
+          <form id="create-form" class="mission-form" novalidate>
+            <label class="field field--wide">
+              <span>Title</span>
+              <input name="title" type="text" maxlength="120" placeholder="e.g. Stop the Canal Street heist" />
+            </label>
+            <label class="field field--wide">
+              <span>Description</span>
+              <textarea name="description" rows="2" maxlength="1000" placeholder="Details, location, who to call…"></textarea>
+            </label>
+            <label class="field">
+              <span>Priority</span>
+              <select name="priority">
+                <option>Low</option>
+                <option selected>Medium</option>
+                <option>High</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Status</span>
+              <select name="status">
+                <option selected>To Do</option>
+                <option>In Progress</option>
+                <option>Done</option>
+              </select>
+            </label>
+            <p class="error field--wide" id="create-error" role="alert"></p>
+            <button type="submit" class="btn btn--primary">Add mission</button>
+          </form>
+        </section>
+
+        <section>
+          <div class="list-head">
+            <h2>Your missions <span class="count" id="mission-count">0</span></h2>
+            <div class="filters">
+              <label>
+                <span class="sr-only">Filter by status</span>
+                <select id="filter-status">
+                  <option value="">All statuses</option>
+                  <option>To Do</option>
+                  <option>In Progress</option>
+                  <option>Done</option>
+                </select>
+              </label>
+              <label>
+                <span class="sr-only">Filter by priority</span>
+                <select id="filter-priority">
+                  <option value="">All priorities</option>
+                  <option>High</option>
+                  <option>Medium</option>
+                  <option>Low</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <ul id="mission-list" class="missions"></ul>
+          <p id="empty-state" class="empty" hidden></p>
+        </section>
+      </main>
+    </div>
+
+    <!-- ===== Edit dialog ===== -->
+    <dialog id="edit-dialog">
+      <form id="edit-form" class="mission-form" method="dialog" novalidate>
+        <h2 class="field--wide">Edit mission</h2>
+        <label class="field field--wide">
+          <span>Title</span>
+          <input name="title" type="text" maxlength="120" />
+        </label>
+        <label class="field field--wide">
+          <span>Description</span>
+          <textarea name="description" rows="3" maxlength="1000"></textarea>
+        </label>
+        <label class="field">
+          <span>Priority</span>
+          <select name="priority"><option>Low</option><option>Medium</option><option>High</option></select>
+        </label>
+        <label class="field">
+          <span>Status</span>
+          <select name="status"><option>To Do</option><option>In Progress</option><option>Done</option></select>
+        </label>
+        <p class="error field--wide" id="edit-error" role="alert"></p>
+        <div class="dialog-actions field--wide">
+          <button type="button" class="btn btn--ghost" id="edit-cancel">Cancel</button>
+          <button type="submit" class="btn btn--primary">Save changes</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
