@@ -3,7 +3,7 @@
 A RESTful API with a database and a plain HTML/JS frontend, where Peter Parker keeps track of his missions. Built for The CodeBreakers Club Backend task (1st year).
 
 **Stack:** Node.js · Express 5 · SQLite (better-sqlite3) · bcryptjs · JSON Web Tokens
-**Live demo:** _add your Render/Railway link here_
+**Live demo:** https://mission-board.onrender.com/ (free hosting: the first visit after 15 minutes idle can take ~30–50 seconds to wake up)
 
 ## Features
 
